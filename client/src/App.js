@@ -11,6 +11,7 @@ import { ethers } from 'ethers';
 function App() {
     const [tasks,setTasks] = useState([]);
     const [input,setInput] = useState("");
+    const [del,setDelete] = useState("");
     const [currentAccount,setCurrentAccount] = useState('')
     const [connectionNewtork,setConnectionNetwork] = useState(false);
 
@@ -51,7 +52,6 @@ function App() {
                     TaskAbi.abi,
                     signer
                 )
-                console.log(TaskContract)
                 // await TaskContract.getMyTasks.map(data=>{
                 //     console.log(data)
                 // })
@@ -71,7 +71,7 @@ function App() {
     }
 
     const saveData = () =>{
-        console.log("start")
+        console.log("start transaction")
         let temp = {
             "task":input,
             "isDeleted":false
@@ -91,7 +91,7 @@ function App() {
                 .then(response=>{
                     console.log(response)
                     setTasks([...tasks,temp]);
-                    getTaskList();
+                    setInput("")
                 })
                 .catch(error=>{
                     console.log(error);
@@ -104,13 +104,44 @@ function App() {
     }
 
     const deleteTask = () =>{
-        
+        console.log("delete transaction")
+        let temp = {
+            "taskId":del,
+            "isDeleted":true
+        }
+        try{
+            const {ethereum} = window
+            if(ethereum){
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+                const TaskContract = new ethers.Contract(
+                    TaskContractAddress,
+                    TaskAbi.abi,
+                    signer
+                )
+
+                TaskContract.deleteTask(temp.taskId,temp.isDeleted)
+                .then(response=>{
+                    console.log(response)
+                })
+                .catch(error=>{
+                    console.log(error);
+                });
+            }
+
+        }catch(expection){
+
+        }
     }
 
     useEffect(()=>{
         connectWallet();
-        getTaskList();
     },[])
+    useEffect(()=>{
+        setTimeout(() => {
+            getTaskList();
+          }, 2000);
+    })
 
     return (
         <>
@@ -130,25 +161,27 @@ function App() {
                 <h3>TODO Tasks</h3>
                 <div className='my-4'>
                     <label htmlFor="task" className='my-2'>Enter task</label>
-                    <textarea type="text" id='task' placeholder='Enter task' className="form-control" rows={5} onChange={(e)=>setInput(e.target.value)}>
-                    
-                    </textarea><br/>
+                    <input type="text" id='task' placeholder='Enter task' className="form-control" value={input} onChange={(e)=>setInput(e.target.value)}/><br/>
                     <div className="w-100 d-flex">
                         <button onClick={saveData} className='ms-auto px-5 btn btn-success'>Save Task</button>
                     </div>
                 </div>
 
                 <h5 className='my-2'>Your Tasks</h5>
-                <ul>
+                <div className='d-flex flex-wrap'>
                     {
                         tasks.map(aa=>
                             {
-                                console.log(aa);
-                                return <><li>{aa.taskText}</li></> 
-                        })
-
+                                return <>
+                                    <div className='d-flex shadow m-2 p-3 flex-wrap'>
+                                        <div className='btn btn-sm btn-danger custom-card-btn' onClick={()=>{deleteTask();setDelete(aa.id)}}>Delete</div>
+                                        <div className='custom-card-text pl-3'>{aa.taskText}</div>
+                                    </div>
+                                </> 
+                            }
+                        )
                     }
-                </ul>
+                </div>
             </div>
         </div>
         </>

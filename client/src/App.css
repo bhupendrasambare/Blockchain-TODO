@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.custom-card-text{
+    /* width: calc(100% - 80px); */
+}
+.custom-card-btn{
+    width: 80px;
+    margin-right: 30px;
+}
