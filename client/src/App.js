@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.css';
 import Container from 'react-bootstrap/Container';
@@ -14,6 +14,7 @@ function App() {
     const [del,setDelete] = useState("");
     const [currentAccount,setCurrentAccount] = useState('')
     const [connectionNewtork,setConnectionNetwork] = useState(false);
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
     const connectWallet = async()=>{
         try{
@@ -25,8 +26,19 @@ function App() {
             }
 
             let chainId = await ethereum.request({method:"eth_chainId"})
-            const hardHatChainId = "0x539";
+            const hardHatChainId = "0xaa36a7";
             if(chainId != hardHatChainId){
+                if (window.ethereum) {
+                    try {
+                        // Switch the network to Sophia Testnet
+                        await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: hardHatChainId }], // 0x2a is the hexadecimal chain ID for Sophia Testnet
+                        });
+                    } catch (error) {
+                        console.log('Failed to switch network:', error);
+                    }
+                }
                 setConnectionNetwork(false);
                 return;
             }else{
@@ -143,6 +155,15 @@ function App() {
           }, 2000);
     })
 
+    function makeStringShort(s){
+        if(windowSize.current[0] <550){
+            return s.substring(0,6)+"..."+s.substring(s.length-5);
+        }else{
+            return s;
+        }
+
+    }
+
     return (
         <>
         <Navbar className='shadow py-2'>
@@ -151,7 +172,7 @@ function App() {
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                    {(currentAccount)?currentAccount:<><button onClick={connectWallet} className='btn btn-dark'>Connect wallet</button></>}
+                    {(currentAccount)?makeStringShort(currentAccount):<><button onClick={connectWallet} className='btn btn-dark'>Connect wallet</button></>}
                 </Navbar.Text>
                 </Navbar.Collapse>
             </Container>
@@ -168,14 +189,14 @@ function App() {
                 </div>
 
                 <h5 className='my-2'>Your Tasks</h5>
-                <div className='d-flex flex-wrap'>
+                <div className='d-flex flex-wrap row justify-content-between'>
                     {
                         tasks.map(aa=>
                             {
                                 return <>
-                                    <div className='d-flex shadow m-2 p-3 flex-wrap'>
-                                        <div className='btn btn-sm btn-danger custom-card-btn' onClick={()=>{deleteTask();setDelete(aa.id)}}>Delete</div>
-                                        <div className='custom-card-text pl-3'>{aa.taskText}</div>
+                                    <div className='d-flex shadow m-2 p-3 col-md-3  align-items-center my-auto'>
+                                        <div className='custom-card-text'>{aa.taskText}</div>
+                                        <div className='btn btn-sm btn-danger custom-card-btn ms-auto' onClick={()=>{deleteTask();setDelete(aa.id)}}>Delete</div>
                                     </div>
                                 </> 
                             }
