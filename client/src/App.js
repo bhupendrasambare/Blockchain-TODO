@@ -156,12 +156,11 @@ function App() {
     })
 
     function makeStringShort(s){
-        if(windowSize.current[0] <550){
+        if(windowSize.current[0] <450){
             return s.substring(0,6)+"..."+s.substring(s.length-5);
         }else{
             return s;
         }
-
     }
 
     return (
@@ -178,30 +177,38 @@ function App() {
             </Container>
         </Navbar>
         <div className="App" onClick={connectWallet}>
-            <div className="container shadow p-5 mt-5">
-                <h3>TODO Tasks</h3>
-                <div className='my-4'>
-                    <label htmlFor="task" className='my-2'>Enter task</label>
-                    <input type="text" id='task' placeholder='Enter task' className="form-control" value={input} onChange={(e)=>setInput(e.target.value)}/><br/>
-                    <div className="w-100 d-flex">
-                        <button onClick={saveData} className='ms-auto px-5 btn btn-success'>Save Task</button>
+            <div className="container shadow p-2">
+                <div className='app-inner rounded m-3 p-3'>
+                    <h3 className=''>TODO Tasks</h3>
+                    <div className='my-4'>
+                        <label htmlFor="task" className='text-bold text-light my-2'>Enter task</label>
+                        <input type="text" id='task' placeholder='Enter task' className="form-control" value={input} onChange={(e)=>setInput(e.target.value)}/><br/>
+                        <div className="w-100 d-flex">
+                            <button onClick={saveData} className='ms-auto px-5 btn btn-success'>Save Task</button>
+                        </div>
                     </div>
-                </div>
 
-                <h5 className='my-2'>Your Tasks</h5>
-                <div className='d-flex flex-wrap row justify-content-between'>
-                    {
-                        tasks.map(aa=>
-                            {
-                                return <>
-                                    <div className='d-flex shadow m-2 p-3 col-md-3  align-items-center my-auto'>
-                                        <div className='custom-card-text'>{aa.taskText}</div>
-                                        <div className='btn btn-sm btn-danger custom-card-btn ms-auto' onClick={()=>{deleteTask();setDelete(aa.id)}}>Delete</div>
-                                    </div>
-                                </> 
-                            }
-                        )
-                    }
+                    <h5 className='my-2 text-light'>Your Tasks</h5>
+                    <div className='d-flex row align-items-center justify-content-start'>
+                        {
+                            tasks.map(aa=>
+                                {
+                                    return <>
+                                        <div className='col-sm-4'>
+                                            <div class="card border-0 shadow rounded  my-3">
+                                                <div class="card-body mx-3">
+                                                    <p class="card-text">{aa.taskText}</p>
+                                                    <div className='d-flex'>
+                                                    <a href="#" class="btn rounded-pill btn-danger ms-auto" onClick={()=>{deleteTask();setDelete(aa.id)}}>Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </> 
+                                }
+                            )
+                        }
+                    </div>
                 </div>
             </div>
         </div>
