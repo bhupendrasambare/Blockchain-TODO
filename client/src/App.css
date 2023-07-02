@@ -3,10 +3,29 @@
     padding: 0;
     box-sizing: border-box;
 }
+::-webkit-scrollbar {
+    width: 0em;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 0.25em;
+  }
 .custom-card-text{
     /* width: calc(100% - 80px); */
 }
 .custom-card-btn{
     width: 80px;
     margin-left: 30px;
+}
+.App{
+    background: url(./assets/bg.jpg);
+}
+.app-inner{
+    background-color: rgba(255, 255, 255, 0.378);
+    min-height: calc(100vh - 100px);
 }
