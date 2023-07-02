@@ -177,7 +177,7 @@ function App() {
             </Container>
         </Navbar>
         <div className="App" onClick={connectWallet}>
-            <div className="container shadow p-2">
+            <div className="container p-2">
                 <div className='app-inner rounded m-3 p-3'>
                     <h3 className=''>TODO Tasks</h3>
                     <div className='my-4'>
@@ -189,18 +189,18 @@ function App() {
                     </div>
 
                     <h5 className='my-2 text-light'>Your Tasks</h5>
-                    <div className='d-flex row align-items-center justify-content-start'>
+                    <div className='d-flex row  justify-content-start'>
                         {
                             tasks.map(aa=>
                                 {
                                     return <>
-                                        <div className='col-sm-4'>
-                                            <div class="card border-0 shadow rounded  my-3">
+                                        <div className='col-sm-4  my-3'>
+                                            <div class="card border-0  h-100 shadow rounded">
                                                 <div class="card-body mx-3">
                                                     <p class="card-text">{aa.taskText}</p>
-                                                    <div className='d-flex'>
+                                                </div>
+                                                <div className='d-flex mb-2 me-2'>
                                                     <a href="#" class="btn rounded-pill btn-danger ms-auto" onClick={()=>{deleteTask();setDelete(aa.id)}}>Delete</a>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
