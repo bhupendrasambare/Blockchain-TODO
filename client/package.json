@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "homepage": "https://bhupendrasambare.github.io/blockchain-todo",
+  "homepage": "https://bhupendrasambare.github.io/todo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
