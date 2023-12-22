@@ -31,3 +31,8 @@ visit
 ```bash
 HTTP://localhost:3000/
 ```
+
+## Screenshots
+
+#### HOME 
+![About](./Screenshoot/home.png?raw=true)
