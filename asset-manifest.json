@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/todo/static/css/main.742ce6d9.css",
-    "main.js": "/todo/static/js/main.7b77ba69.js",
-    "static/media/bg.jpg": "/todo/static/media/bg.236652cc6beb9321961f.jpg",
-    "index.html": "/todo/index.html",
-    "main.742ce6d9.css.map": "/todo/static/css/main.742ce6d9.css.map",
-    "main.7b77ba69.js.map": "/todo/static/js/main.7b77ba69.js.map"
+    "main.css": "/Blockchain-TODO/static/css/main.b55baa29.css",
+    "main.js": "/Blockchain-TODO/static/js/main.7b77ba69.js",
+    "static/media/bg.jpg": "/Blockchain-TODO/static/media/bg.236652cc6beb9321961f.jpg",
+    "index.html": "/Blockchain-TODO/index.html",
+    "main.b55baa29.css.map": "/Blockchain-TODO/static/css/main.b55baa29.css.map",
+    "main.7b77ba69.js.map": "/Blockchain-TODO/static/js/main.7b77ba69.js.map"
   },
   "entrypoints": [
-    "static/css/main.742ce6d9.css",
+    "static/css/main.b55baa29.css",
     "static/js/main.7b77ba69.js"
   ]
 }
